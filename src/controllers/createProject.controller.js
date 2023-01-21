@@ -1,5 +1,8 @@
 import "colors";
 import { validateYesOrNoQuestion } from "../helpers/index.js";
+import { CloneService } from "../services/cloneService.js";
+
+const cloneService = new CloneService();
 
 export const createProjectController = async ({
   framework,
@@ -7,9 +10,7 @@ export const createProjectController = async ({
   responseResume,
 }) => {
   if (validateYesOrNoQuestion(responseResume)) {
-    console.log("\n\nInformation to create the project...\n\n");
-    console.log({ framework, projectName });
-    console.log("\n\n-> Creating project...".green);
+    cloneService.clone(framework, projectName);
   } else {
     console.log("\n\n-> Canceling project creation...".red);
   }

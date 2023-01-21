@@ -1,2 +1,5 @@
 /node_modules
+/apps_templates
+/.vscode
+
 test.js
