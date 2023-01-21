@@ -35,24 +35,21 @@ export class CloneService {
 
   cloneProject = (url, projectName) => {
     return new Promise((resolve, reject) => {
-      exec(
-        `git clone https://github.com/JoseGaldamez/amazon_store.git ${projectName}`,
-        (error, stdout, stderr) => {
-          if (error) {
-            console.log(`error: ${error.message}`);
-            reject(false);
-            return;
-          }
-          if (stderr) {
-            console.log(`stderr: ${stderr}`);
-            resolve(true);
-            return;
-          }
-          console.log(`stdout: ${stdout}`);
+      exec(`git clone ${url} ${projectName}`, (error, stdout, stderr) => {
+        if (error) {
+          console.log(`error: ${error.message}`);
+          reject(false);
+          return;
+        }
+        if (stderr) {
+          console.log(`stderr: ${stderr}`);
           resolve(true);
           return;
         }
-      );
+        console.log(`stdout: ${stdout}`);
+        resolve(true);
+        return;
+      });
     });
   };
 
