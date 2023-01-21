@@ -1,0 +1,12 @@
+{
+  "name": "js-frameworks",
+  "version": "0.0.1",
+  "description": "Create a base of a framework for JavaScript with diferents presets.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
