@@ -1,3 +1,4 @@
 #!/usr/bin/env node
-const js_frameworks = require("../index.js");
-js_frameworks.start();
+import js_frameworks from "../index.js";
+console.log("js_frameworks", js_frameworks);
+js_frameworks();

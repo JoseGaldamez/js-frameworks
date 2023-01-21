@@ -1,2 +1,2 @@
-const { start } = require("./src/index.js");
-module.exports = { start };
+import { start } from "./src/index.js";
+export default start;
