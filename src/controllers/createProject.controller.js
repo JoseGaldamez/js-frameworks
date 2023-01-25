@@ -10,9 +10,9 @@ export const createProjectController = async ({
   responseResume,
 }) => {
   if (validateYesOrNoQuestion(responseResume)) {
-    cloneService.clone(framework, projectName);
+    await cloneService.clone(framework, projectName);
+    console.log("\n\nThanks for using JS Frameworks!\n\n".green);
   } else {
     console.log("\n\n-> Canceling project creation...".red);
   }
-  console.log("\n\nThanks for using JS Frameworks!\n\n".green);
 };

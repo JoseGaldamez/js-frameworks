@@ -1,4 +1,6 @@
 import { exec } from "child_process";
+import fs from "fs";
+import "colors";
 
 export class CloneService {
   repositories = {
@@ -30,7 +32,12 @@ export class CloneService {
       throw new Error("Git not cleared");
     }
 
-    console.log("\nProject cloned successfully!\n");
+    const packageRenamed = await this.renamePackage(projectName);
+
+    if (!packageRenamed) {
+      throw new Error("No renamed package.json");
+    }
+    console.log("\nProject cloned successfully!\n".blue);
   }
 
   cloneProject = (url, projectName) => {
@@ -70,6 +77,40 @@ export class CloneService {
           }
           console.log(`stdout: ${stdout}`);
           resolve(true);
+        }
+      );
+    });
+  };
+
+  renamePackage = async (projectName) => {
+    return new Promise((resolve, reject) => {
+      fs.readFile(
+        `.\\${projectName}\\package.json`,
+        "utf-8",
+        function (err, data) {
+          if (err) {
+            reject(err);
+            throw err;
+          }
+
+          console.log("Renaming package.json...");
+
+          var newInfoFile = data.replace(
+            "js-frameworks-template-basic-reactjs",
+            projectName
+          );
+          fs.writeFile(
+            `.\\${projectName}\\package.json`,
+            newInfoFile,
+            "utf-8",
+            function (err) {
+              if (err) {
+                reject(err);
+                throw err;
+              }
+              resolve(true);
+            }
+          );
         }
       );
     });
