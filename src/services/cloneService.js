@@ -6,7 +6,8 @@ export class CloneService {
   repositories = {
     "React JS":
       "https://github.com/JoseGaldamez/js-frameworks-template-basic-reactjs.git",
-    "Angular JS": "https://github.com/JoseGaldamez/basic_rest_fastapi.git",
+    Angular:
+      "https://github.com/JoseGaldamez/js-frameworks-templates-basic-angular-ts.git",
     "Vue JS": "https://github.com/JoseGaldamez/basic_rest_fastapi.git",
     "Svelte JS": "https://github.com/JoseGaldamez/basic_rest_fastapi.git",
     "Next JS": "https://github.com/JoseGaldamez/basic_rest_fastapi.git",
@@ -44,16 +45,16 @@ export class CloneService {
     return new Promise((resolve, reject) => {
       exec(`git clone ${url} ${projectName}`, (error, stdout, stderr) => {
         if (error) {
-          console.log(`error: ${error.message}`);
+          console.log(`${"Error".red}: ${error.message}`);
           reject(false);
           return;
         }
         if (stderr) {
-          console.log(`stderr: ${stderr}`);
+          console.log(`${stderr}`);
           resolve(true);
           return;
         }
-        console.log(`stdout: ${stdout}`);
+        console.log(`${stdout}`);
         resolve(true);
         return;
       });
@@ -66,16 +67,16 @@ export class CloneService {
         `cd .\\${projectName}\\ && git checkout --orphan latest_branch && git branch -D main && git branch -m main && git remote remove origin`,
         (error, stdout, stderr) => {
           if (error) {
-            console.log(`error: ${error.message}`);
+            console.log(`${"Error".red}: ${error.message}`);
             reject(false);
             return;
           }
           if (stderr) {
-            console.log(`stderr: ${stderr}`);
+            console.log(`${stderr}`);
             resolve(true);
             return;
           }
-          console.log(`stdout: ${stdout}`);
+          console.log(`${stdout}`);
           resolve(true);
         }
       );
@@ -105,6 +106,7 @@ export class CloneService {
             "utf-8",
             function (err) {
               if (err) {
+                console.log(`${"Error".red}: ${err}`);
                 reject(err);
                 throw err;
               }
