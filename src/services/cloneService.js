@@ -1,7 +1,6 @@
 import { exec } from "child_process";
 import fs from "fs";
 import "colors";
-
 export class CloneService {
   repositories = {
     "React JS":
@@ -61,60 +60,62 @@ export class CloneService {
     });
   };
 
-  clearGit = (projectName) => {
+  clearGit = async (projectName) => {
+    let command = "";
+    if (process.platform === "win32") {
+      command = `cd .\\${projectName}\\ && git checkout --orphan latest_branch && git branch -D main && git branch -m main && git remote remove origin`;
+    } else {
+      command = `cd ./${projectName}/ && git checkout --orphan latest_branch && git branch -D main && git branch -m main && git remote remove origin`;
+    }
+
     return new Promise((resolve, reject) => {
-      exec(
-        `cd .\\${projectName}\\ && git checkout --orphan latest_branch && git branch -D main && git branch -m main && git remote remove origin`,
-        (error, stdout, stderr) => {
-          if (error) {
-            console.log(`${"Error".red}: ${error.message}`);
-            reject(false);
-            return;
-          }
-          if (stderr) {
-            console.log(`${stderr}`);
-            resolve(true);
-            return;
-          }
-          console.log(`${stdout}`);
-          resolve(true);
+      exec(command, (error, stdout, stderr) => {
+        if (error) {
+          console.log(`${"Error".red}: ${error.message}`);
+          reject(false);
+          return;
         }
-      );
+        if (stderr) {
+          console.log(`${stderr}`);
+          resolve(true);
+          return;
+        }
+        console.log(`${stdout}`);
+        resolve(true);
+      });
     });
   };
 
   renamePackage = async (projectName) => {
+    let command = "";
+    if (process.platform === "win32") {
+      command = `.\\${projectName}\\package.json`;
+    } else {
+      command = `./${projectName}/package.json`;
+    }
+
     return new Promise((resolve, reject) => {
-      fs.readFile(
-        `.\\${projectName}\\package.json`,
-        "utf-8",
-        function (err, data) {
+      fs.readFile(command, "utf-8", function (err, data) {
+        if (err) {
+          reject(err);
+          throw err;
+        }
+
+        console.log("Renaming package.json...");
+
+        var newInfoFile = data.replace(
+          "js-frameworks-template-basic-reactjs",
+          projectName
+        );
+        fs.writeFile(command, newInfoFile, "utf-8", function (err) {
           if (err) {
+            console.log(`${"Error".red}: ${err}`);
             reject(err);
             throw err;
           }
-
-          console.log("Renaming package.json...");
-
-          var newInfoFile = data.replace(
-            "js-frameworks-template-basic-reactjs",
-            projectName
-          );
-          fs.writeFile(
-            `.\\${projectName}\\package.json`,
-            newInfoFile,
-            "utf-8",
-            function (err) {
-              if (err) {
-                console.log(`${"Error".red}: ${err}`);
-                reject(err);
-                throw err;
-              }
-              resolve(true);
-            }
-          );
-        }
-      );
+          resolve(true);
+        });
+      });
     });
   };
 }

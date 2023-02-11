@@ -1,6 +1,6 @@
 {
   "name": "js-frameworks",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Create a base of a framework for JavaScript with diferents presets.",
   "main": "index.js",
   "type": "module",
