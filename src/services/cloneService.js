@@ -7,7 +7,8 @@ export class CloneService {
       "https://github.com/JoseGaldamez/js-frameworks-template-basic-reactjs.git",
     Angular:
       "https://github.com/JoseGaldamez/js-frameworks-templates-basic-angular-ts.git",
-    "Vue JS": "https://github.com/JoseGaldamez/basic_rest_fastapi.git",
+    "Vue JS":
+      "https://github.com/JoseGaldamez/js-frameworks-templates-basic-vue3-js.git",
     "Svelte JS": "https://github.com/JoseGaldamez/basic_rest_fastapi.git",
     "Next JS": "https://github.com/JoseGaldamez/basic_rest_fastapi.git",
   };
